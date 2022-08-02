@@ -28,7 +28,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::digit_pressed()
 {
-    qDebug()<<"presses";
+//    qDebug()<<"presses";
+    QPushButton *button = (QPushButton*)sender();
+
+    if(ui->label_2->text() == '0')
+    {
+         ui->label_2->setText(button->text());
+    }
+
+    else
+    {
+        ui->label_2->setText(ui->label_2->text()+button->text());
+    }
+
 }
 
 

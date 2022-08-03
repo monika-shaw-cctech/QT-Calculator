@@ -36,7 +36,7 @@
 {
   border:1px solid;
 border-radius : 10px;
- background-color : #bdc3c7;
+ background-color : white;
 color:black;
 
 }</string>
@@ -70,7 +70,7 @@ color:black;
 {
   border:1px solid;
 border-radius : 10px;
- background-color : #bdc3c7;
+ background-color : white;
 color:black;
 
 }</string>
@@ -137,7 +137,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>-</string>
@@ -164,6 +166,11 @@ color:black;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -193,7 +200,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>(</string>
@@ -222,7 +231,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>.</string>
@@ -251,7 +262,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>x</string>
@@ -280,7 +293,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>c</string>
@@ -307,6 +322,11 @@ color:black;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -336,7 +356,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>←</string>
@@ -365,7 +387,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>)</string>
@@ -392,6 +416,11 @@ color:black;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -421,7 +450,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>^</string>
@@ -450,7 +481,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>÷</string>
@@ -477,6 +510,11 @@ color:black;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -504,6 +542,11 @@ border-radius : 10px;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -560,6 +603,11 @@ border-radius: 10px;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -587,6 +635,11 @@ border-radius : 10px;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -614,6 +667,11 @@ border-radius : 10px;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -641,6 +699,11 @@ border-radius : 10px;
 border : 1px solid;
 
 border-radius : 10px;
+}
+
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -670,7 +733,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>Theme</string>
@@ -699,7 +764,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>+</string>
@@ -728,7 +795,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>%</string>
@@ -757,9 +826,9 @@ border : 1px solid;
 border-radius : 10px;
 }
 
-QPushButton:hover{
-
-  background-color: linear-gradient(red, yellow);
+QPushButton:pressed
+{
+ background-color:#b3ffff;
 }</string>
     </property>
     <property name="text">
@@ -789,7 +858,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>√</string>
@@ -818,7 +889,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>+/-</string>
@@ -847,7 +920,9 @@ border-radius : 10px;
  background-color : #bdc3c7;
 color:black;
 
-}</string>
+}
+
+</string>
     </property>
     <property name="text">
      <string>1/x</string>

@@ -398,7 +398,7 @@ color:black;
      <string>c</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_17">
+   <widget class="QPushButton" name="pushButton_dot">
     <property name="geometry">
      <rect>
       <x>170</x>

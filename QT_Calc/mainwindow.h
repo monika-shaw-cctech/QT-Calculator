@@ -17,6 +17,7 @@ public:
 
 private slots:
     void digit_pressed();
+    void unary_operation();
 
 private:
     Ui::MainWindow *ui;

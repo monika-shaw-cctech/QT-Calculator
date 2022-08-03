@@ -31,6 +31,13 @@ void MainWindow::digit_pressed()
 //    qDebug()<<"presses";
     QPushButton *button = (QPushButton*)sender();
 
+
+    double label;
+    QString result;
+
+    //        ui->label_2->setText(ui->label_2->text()+button->text());
+
+
     if(ui->label_2->text() == '0')
     {
          ui->label_2->setText(button->text());
@@ -38,7 +45,12 @@ void MainWindow::digit_pressed()
 
     else
     {
-        ui->label_2->setText(ui->label_2->text()+button->text());
+
+
+          label = (ui->label_2->text()+button->text()).toDouble();
+          result = QString::number(label,'g',15);
+          ui->label_2->setText(result);
+
     }
 
 }

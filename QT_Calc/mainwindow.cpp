@@ -154,5 +154,4 @@ void MainWindow::clear_pressed()
 void MainWindow::equal_pressed()
 {
 
-
 }

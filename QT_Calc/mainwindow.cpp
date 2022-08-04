@@ -30,9 +30,10 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
+   connect(ui->pushButton_reciprocal,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_square,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
+   connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
 
    connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(binary_operation()));
    connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(binary_operation()));
@@ -129,6 +130,16 @@ void MainWindow::unary_operation()
        ui->label_2->setText(result);
 
     }
+
+    else if(button->text() == "𝔁/2")
+    {
+       label = (ui->label_2->text().toDouble()) * (0.5);
+//       qDebug()<<label;
+       result = QString::number(label);
+       ui->label_2->setText(result);
+
+    }
+
 
 
 }

@@ -67,6 +67,7 @@ void MainWindow::digit_pressed()
         string exp=ui->label_2->text().toStdString();
         size_t length=exp.length();
         if(exp[length-1]=='+'||exp[length-1]=='x'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^')
+            //qDebug()<<ui->label_2->setText(ui->label_2->text()+' '+button->text());
             ui->label_2->setText(ui->label_2->text()+' '+button->text());
         else
             ui->label_2->setText(ui->label_2->text()+button->text());
@@ -138,6 +139,7 @@ void MainWindow::binary_operation()
 void MainWindow::add_brackets()
 {
     QPushButton*button =(QPushButton*)sender();
+    // qDebug()<<(ui->label_2->text()+' '+button->text());
        ui->label_2->setText(ui->label_2->text()+' '+button->text());
 }
 
@@ -148,3 +150,9 @@ void MainWindow::clear_pressed()
 }
 
 
+
+void MainWindow::equal_pressed()
+{
+
+
+}

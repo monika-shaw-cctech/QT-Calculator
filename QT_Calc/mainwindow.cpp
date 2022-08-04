@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QDebug"
+#include <math.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
+   connect(ui->pushButton_square,SIGNAL(pressed()),this,SLOT(unary_operation()));
+
+   connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
 
 }
 
@@ -91,6 +95,24 @@ void MainWindow::unary_operation()
         result = QString::number(label);
         ui->label_2->setText(result);
     }
+
+    else if(button->text() == "𝔁²")
+    {
+        label = ui->label_2->text().toDouble() * (2);
+        result = QString::number(label);
+        ui->label_2->setText(result);
+
+    }
+
+    else if(button->text() == "²√")
+    {
+       label = sqrt(ui->label_2->text().toDouble());
+//       qDebug()<<label;
+       result = QString::number(label);
+       ui->label_2->setText(result);
+
+    }
+
 
 }
 

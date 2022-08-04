@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QDebug"
 #include <math.h>
+#include "infixToPostfix.h"
 using namespace std;
 
 QString first_label;
@@ -45,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
    connect(ui->pushButton_clear,SIGNAL(pressed()),this,SLOT(clear_pressed()));
+   connect(ui->pushButton_equals,SIGNAL(pressed()),this,SLOT(equal_pressed()));
+
 
 
 

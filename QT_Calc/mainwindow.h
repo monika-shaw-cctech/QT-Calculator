@@ -21,7 +21,7 @@ private slots:
     void binary_operation();
     void add_brackets();
     void clear_pressed();
-
+    void equal_pressed();
 private:
     Ui::MainWindow *ui;
 };

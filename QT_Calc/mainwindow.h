@@ -18,6 +18,9 @@ public:
 private slots:
     void digit_pressed();
     void unary_operation();
+    void binary_operation();
+    void add_brackets();
+    void clear_pressed();
 
 private:
     Ui::MainWindow *ui;

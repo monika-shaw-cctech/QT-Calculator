@@ -22,6 +22,8 @@ private slots:
     void add_brackets();
     void clear_pressed();
     void equal_pressed();
+    void back_pressed();
+    void theme_pressed();
 private:
     Ui::MainWindow *ui;
 };

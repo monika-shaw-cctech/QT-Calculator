@@ -5,8 +5,6 @@
 #include "infixToPostfix.h"
 using namespace std;
 
-QString first_label;
-
 double firstNum, secondNum;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -41,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(binary_operation()));
    connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(binary_operation()));
 
+
    connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
    connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
 
@@ -48,6 +47,11 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->pushButton_clear,SIGNAL(pressed()),this,SLOT(clear_pressed()));
    connect(ui->pushButton_equals,SIGNAL(pressed()),this,SLOT(equal_pressed()));
+   connect(ui->pushButton_back,SIGNAL(pressed()),this,SLOT(back_pressed()));
+
+    connect(ui->pushButton_theme,SIGNAL(pressed()),this,SLOT(theme_pressed()));
+
+
 
 
 
@@ -67,17 +71,18 @@ void MainWindow::digit_pressed()
     QPushButton *button=(QPushButton*)sender(); //sender return object that call method
     if(ui->label_2->text()=="0"){
         ui->label_2->setText(button->text());
-    }else{
-        string exp=ui->label_2->text().toStdString();
-        size_t length=exp.length();
-        if(exp[length-1]=='+'||exp[length-1]=='x'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^')
-            //qDebug()<<ui->label_2->setText(ui->label_2->text()+' '+button->text());
-            ui->label_2->setText(ui->label_2->text()+' '+button->text());
+         secondNum =( ui->label_2->text()).toDouble();
+    }
         else
+        {
             ui->label_2->setText(ui->label_2->text()+button->text());
+            secondNum =( ui->label_2->text()).toDouble();
+            qDebug()<<secondNum;
+
+        }
     }
 
-}
+
 
 void MainWindow::unary_operation()
 {
@@ -147,7 +152,17 @@ void MainWindow::unary_operation()
 void MainWindow::binary_operation()
 {
     QPushButton*button =(QPushButton*)sender();
-       ui->label_2->setText(ui->label_2->text()+' '+button->text());
+    button->setCheckable(true);
+    if(button->text() == "+" || button->text() == "-" || button->text() == "x" || button->text() == "/"||button->text() == "^" )
+    {
+    firstNum = ui->label_2->text().toDouble();
+    qDebug()<<firstNum;
+    ui->label_3->setText(ui->label_2->text()+' '+button->text());
+     ui->label_2->setText("0");
+
+
+    }
+
 }
 
 void MainWindow::add_brackets()
@@ -155,17 +170,99 @@ void MainWindow::add_brackets()
     QPushButton*button =(QPushButton*)sender();
     // qDebug()<<(ui->label_2->text()+' '+button->text());
        ui->label_2->setText(ui->label_2->text()+' '+button->text());
+
 }
 
 void MainWindow::clear_pressed()
 {
     ui->label_1->setText("0");
     ui->label_2->setText("0");
+    ui->label_3->setText("0");
 }
 
+void MainWindow::back_pressed()
+{
+    QString displayLabel = ui->label_3->text();
 
+      //Check if label is empty
+      if (displayLabel.length() == 0) {
+          return;
+      }
+
+      //Delete last digit from string
+      displayLabel.QString::chop(1);
+      //Set number back to display
+      ui->label_3->setText(displayLabel);
+
+}
 
 void MainWindow::equal_pressed()
 {
+    if(ui->pushButton_plus->isChecked())
+    {
+    double sum;
+    sum = firstNum+secondNum;
+    QString label;
+    label  = QString::number(sum);
+    ui->label_1->setText(label);
+    ui->pushButton_plus->setChecked(false);
+
+    }
+
+    else if(ui->pushButton_minus->isCheckable())
+    {
+        double sub;
+        sub = firstNum-secondNum;
+        QString label;
+        label  = QString::number(sub);
+        ui->label_1->setText(label);
+        ui->pushButton_minus->setChecked(false);
+
+    }
+    else if(ui->pushButton_multiply->isCheckable())
+    {
+        double mul;
+        mul = firstNum*secondNum;
+        QString label;
+        label  = QString::number(mul);
+        ui->label_1->setText(label);
+        ui->pushButton_minus->setChecked(false);
+
+    }
+    else if(ui->pushButton_divide->isCheckable())
+    {
+        double div;
+        div = firstNum/secondNum;
+        QString label;
+        label  = QString::number(div);
+        ui->label_1->setText(label);
+        ui->pushButton_minus->setChecked(false);
+
+    }
+    else
+    {
+        double power;
+        power = pow(firstNum,secondNum);
+        QString label;
+        label  = QString::number(power);
+        ui->label_1->setText(label);
+        ui->pushButton_minus->setChecked(false);
+
+
+    }
+}
+
+void MainWindow::theme_pressed()
+{
+  ui->pushButton_zero->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_one->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_two->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_three->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_four->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_five->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_six->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_seven->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_eight->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton_nine->setStyleSheet("* { background-color:red;border-radius:10px; }");
 
 }

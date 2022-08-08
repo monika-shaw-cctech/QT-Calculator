@@ -17,6 +17,7 @@ public:
 
 private slots:
     void digit_pressed();
+    void dot_operation();
     void unary_operation();
     void binary_operation();
     void add_brackets();

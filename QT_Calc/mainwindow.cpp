@@ -3,6 +3,10 @@
 #include "QDebug"
 #include <math.h>
 #include "infixToPostfix.h"
+#include "digit.h"
+#include "unary.h"
+#include "binary.h"
+#include "equal.h"
 using namespace std;
 
 double firstNum, secondNum;
@@ -25,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_nine,SIGNAL(pressed()),this,SLOT(digit_pressed()));
 
 
-   connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(unary_operation()));
+   connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(dot_operation()));
    connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_reciprocal,SIGNAL(pressed()),this,SLOT(unary_operation()));
@@ -68,83 +72,37 @@ MainWindow::~MainWindow()
 void MainWindow::digit_pressed()
 {
 //    qDebug()<<"presses";
-    QPushButton *button=(QPushButton*)sender(); //sender return object that call method
-    if(ui->label_2->text()=="0"){
-        ui->label_2->setText(button->text());
-         secondNum =( ui->label_2->text()).toDouble();
-    }
-        else
-        {
-            ui->label_2->setText(ui->label_2->text()+button->text());
-            secondNum =( ui->label_2->text()).toDouble();
-            qDebug()<<secondNum;
+     QPushButton *button=(QPushButton*)sender(); //sender return object that call method
+     string btnTxt = button->text().toStdString();
+     string labelTxt = ui->label_2->text().toStdString();
+     string res = labelText(labelTxt,btnTxt);
+     double num = stod(res);
+     ui->label_2->setText(QString::number(num));
+     secondNum =num;
 
-        }
     }
 
+
+void MainWindow::dot_operation()
+{
+    QPushButton *button = (QPushButton*)sender();
+    string lText = ui->label_2->text().toStdString();
+    string bText = button->text().toStdString();
+    string s = dotOperation(lText,bText);
+    ui->label_2->setText(QString::fromStdString(s));
+
+}
 
 
 void MainWindow::unary_operation()
 {
 //      qDebug()<<"dot";
      QPushButton *button = (QPushButton*)sender();
-     double label;
-     QString result;
+     double lText = ui->label_2->text().toDouble();
+     string bText = button->text().toStdString();
 
-    if(button->text() == '.')
-    {
-        ui->label_2->setText(ui->label_2->text()+".");
-    }
-
-    else if(button->text() == "+/-")
-    {
-//        ui->label_2->setText("-"+ui->label_2->text());
-
-
-        label = (ui->label_2->text().toDouble())* (-1);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-    }
-    else if(button->text() == "%")
-    {
-        label = (ui->label_2->text().toDouble()) * (0.01);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-
-    }
-    else if(button->text() == "1/𝔁")
-    {
-        label =  (1) / (ui->label_2->text().toDouble());
-        result = QString::number(label);
-        ui->label_2->setText(result);
-    }
-
-    else if(button->text() == "𝔁²")
-    {
-        label = ui->label_2->text().toDouble() * (2);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-
-    }
-
-    else if(button->text() == "²√")
-    {
-       label = sqrt(ui->label_2->text().toDouble());
-//       qDebug()<<label;
-       result = QString::number(label);
-       ui->label_2->setText(result);
-
-    }
-
-    else if(button->text() == "𝔁/2")
-    {
-       label = (ui->label_2->text().toDouble()) * (0.5);
-//       qDebug()<<label;
-       result = QString::number(label);
-       ui->label_2->setText(result);
-
-    }
-
+     double res = allUnaryOperation(lText,bText);
+      ui->label_2->setText(QString::number(res));
 
 
 }
@@ -153,15 +111,15 @@ void MainWindow::binary_operation()
 {
     QPushButton*button =(QPushButton*)sender();
     button->setCheckable(true);
-    if(button->text() == "+" || button->text() == "-" || button->text() == "x" || button->text() == "/"||button->text() == "^" )
-    {
-    firstNum = ui->label_2->text().toDouble();
-    qDebug()<<firstNum;
-    ui->label_3->setText(ui->label_2->text()+' '+button->text());
-     ui->label_2->setText("0");
 
 
-    }
+    string lText = ui->label_2->text().toStdString();
+    string bText = button->text().toStdString();
+    string s = binaryOperation(lText,bText);
+    firstNum = stod(lText);
+    ui->label_3->setText(QString::fromStdString(s));
+    ui->label_2->setText("0");
+
 
 }
 
@@ -198,58 +156,22 @@ void MainWindow::back_pressed()
 
 void MainWindow::equal_pressed()
 {
-    if(ui->pushButton_plus->isChecked())
-    {
-    double sum;
-    sum = firstNum+secondNum;
-    QString label;
-    label  = QString::number(sum);
-    ui->label_1->setText(label);
-    ui->pushButton_plus->setChecked(false);
+    bool plus = ui->pushButton_plus->isChecked();
+    bool minus = ui->pushButton_minus->isChecked();
+    bool multiply = ui->pushButton_multiply->isChecked();
+    bool divide = ui->pushButton_divide->isChecked();
 
-    }
+    double res = equalOperation(firstNum,secondNum,plus,minus,multiply,divide);
+     ui->label_1->setText(QString::number(res));
+     ui->pushButton_plus->setChecked(false);
+     ui->pushButton_minus->setChecked(false);
 
-    else if(ui->pushButton_minus->isCheckable())
-    {
-        double sub;
-        sub = firstNum-secondNum;
-        QString label;
-        label  = QString::number(sub);
-        ui->label_1->setText(label);
-        ui->pushButton_minus->setChecked(false);
-
-    }
-    else if(ui->pushButton_multiply->isCheckable())
-    {
-        double mul;
-        mul = firstNum*secondNum;
-        QString label;
-        label  = QString::number(mul);
-        ui->label_1->setText(label);
-        ui->pushButton_minus->setChecked(false);
-
-    }
-    else if(ui->pushButton_divide->isCheckable())
-    {
-        double div;
-        div = firstNum/secondNum;
-        QString label;
-        label  = QString::number(div);
-        ui->label_1->setText(label);
-        ui->pushButton_minus->setChecked(false);
-
-    }
-    else
-    {
-        double power;
-        power = pow(firstNum,secondNum);
-        QString label;
-        label  = QString::number(power);
-        ui->label_1->setText(label);
-        ui->pushButton_minus->setChecked(false);
+     ui->pushButton_multiply->setChecked(false);
+     ui->pushButton_divide->setChecked(false);
 
 
-    }
+
+
 }
 
 void MainWindow::theme_pressed()

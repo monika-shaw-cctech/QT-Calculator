@@ -30,7 +30,11 @@ MainWindow::MainWindow(QWidget *parent)
                    SLOT(digit_pressed()));
        }
 
-
+       connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(digit_pressed()));
 
    connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(dot_operation()));
    connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
@@ -40,11 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
    connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
 
-   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(binary_operation()));
+
 
 
    connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
@@ -76,14 +76,20 @@ void MainWindow::digit_pressed()
 {
 //    qDebug()<<"presses";
      QPushButton *button=(QPushButton*)sender(); //sender return object that call method
+     if(ui->label_2->text() == '0')
+     {
+         ui->label_2->setText(button->text());
+     }
+     else
+         ui->label_2->setText(ui->label_2->text()+button->text());
 
-     string btnTxt = button->text().toStdString();
-     string labelTxt = ui->label_2->text().toStdString();
-     string result = labelText(labelTxt,btnTxt);
+//     string btnTxt = button->text().toStdString();
+//     string labelTxt = ui->label_2->text().toStdString();
+//     string result = labelText(labelTxt,btnTxt);
 
-     double num = stod(result);
-     ui->label_2->setText(QString::number(num));
-     secondNum =num;
+//     double num = stod(result);
+//     ui->label_2->setText(QString::number(num));
+//     secondNum =num;
 
     }
 
@@ -165,19 +171,27 @@ void MainWindow::back_pressed()
 
 void MainWindow::equal_pressed()
 {
-    bool plus = ui->pushButton_plus->isChecked();
-    bool minus = ui->pushButton_minus->isChecked();
-    bool multiply = ui->pushButton_multiply->isChecked();
-    bool divide = ui->pushButton_divide->isChecked();
+//    bool plus = ui->pushButton_plus->isChecked();
+//    bool minus = ui->pushButton_minus->isChecked();
+//    bool multiply = ui->pushButton_multiply->isChecked();
+//    bool divide = ui->pushButton_divide->isChecked();
 
-    double res = equalOperation(firstNum,secondNum,plus,minus,multiply,divide);
-     ui->label_1->setText(QString::number(res));
+//    double res = equalOperation(firstNum,secondNum,plus,minus,multiply,divide);
+//     ui->label_1->setText(QString::number(res));
 
-     ui->pushButton_plus->setChecked(false);
-     ui->pushButton_minus->setChecked(false);
-     ui->pushButton_multiply->setChecked(false);
-     ui->pushButton_divide->setChecked(false);
+//     ui->pushButton_plus->setChecked(false);
+//     ui->pushButton_minus->setChecked(false);
+//     ui->pushButton_multiply->setChecked(false);
+//     ui->pushButton_divide->setChecked(false);
 
+//      digit_pressed();
+      qDebug()<<ui->label_2->text();
+        string expression=ui->label_2->text().toStdString();
+        long long result=evaluate(expression);
+        qDebug()<<result;
+        ui->label_1->setText(QString::number(result,'g',15));
+        //ui->statusBar->showMessage("valid expression",1000);
+//        ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
 
 
 

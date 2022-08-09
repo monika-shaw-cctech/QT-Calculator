@@ -9,13 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    binary.cpp \
+    digit.cpp \
+    equal.cpp \
     infixToPostfix.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    unary.cpp
 
 HEADERS += \
+    binary.h \
+    digit.h \
+    equal.h \
     infixToPostfix.h \
-    mainwindow.h
+    mainwindow.h \
+    unary.h
 
 FORMS += \
     mainwindow.ui

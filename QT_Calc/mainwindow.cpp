@@ -16,17 +16,20 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPushButton *numButtons[10];
 
-   connect(ui->pushButton_zero,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_one,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_two,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_three,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_four,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_five,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_six,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_seven,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_eight,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_nine,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       // Cycle through locating the buttons
+       for(int i = 0; i < 10; ++i){
+           QString butName = "pushButton" + QString::number(i);
+
+           // Get the buttons by name and add to array
+           numButtons[i] = MainWindow::findChild<QPushButton *>(butName);
+
+           // When the button is released call num_pressed()
+           connect(numButtons[i], SIGNAL(released()), this,
+                   SLOT(digit_pressed()));
+       }
+
 
 
    connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(dot_operation()));
@@ -73,10 +76,12 @@ void MainWindow::digit_pressed()
 {
 //    qDebug()<<"presses";
      QPushButton *button=(QPushButton*)sender(); //sender return object that call method
+
      string btnTxt = button->text().toStdString();
      string labelTxt = ui->label_2->text().toStdString();
-     string res = labelText(labelTxt,btnTxt);
-     double num = stod(res);
+     string result = labelText(labelTxt,btnTxt);
+
+     double num = stod(result);
      ui->label_2->setText(QString::number(num));
      secondNum =num;
 
@@ -86,23 +91,26 @@ void MainWindow::digit_pressed()
 void MainWindow::dot_operation()
 {
     QPushButton *button = (QPushButton*)sender();
+
     string lText = ui->label_2->text().toStdString();
     string bText = button->text().toStdString();
-    string s = dotOperation(lText,bText);
-    ui->label_2->setText(QString::fromStdString(s));
+    string result= dotOperation(lText,bText);
+
+    ui->label_2->setText(QString::fromStdString(result));
 
 }
 
 
 void MainWindow::unary_operation()
 {
-//      qDebug()<<"dot";
+
      QPushButton *button = (QPushButton*)sender();
+
      double lText = ui->label_2->text().toDouble();
      string bText = button->text().toStdString();
 
-     double res = allUnaryOperation(lText,bText);
-      ui->label_2->setText(QString::number(res));
+     double result = allUnaryOperation(lText,bText);
+      ui->label_2->setText(QString::number(result));
 
 
 }
@@ -116,6 +124,7 @@ void MainWindow::binary_operation()
     string lText = ui->label_2->text().toStdString();
     string bText = button->text().toStdString();
     string s = binaryOperation(lText,bText);
+
     firstNum = stod(lText);
     ui->label_3->setText(QString::fromStdString(s));
     ui->label_2->setText("0");
@@ -163,9 +172,9 @@ void MainWindow::equal_pressed()
 
     double res = equalOperation(firstNum,secondNum,plus,minus,multiply,divide);
      ui->label_1->setText(QString::number(res));
+
      ui->pushButton_plus->setChecked(false);
      ui->pushButton_minus->setChecked(false);
-
      ui->pushButton_multiply->setChecked(false);
      ui->pushButton_divide->setChecked(false);
 
@@ -176,15 +185,15 @@ void MainWindow::equal_pressed()
 
 void MainWindow::theme_pressed()
 {
-  ui->pushButton_zero->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_one->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_two->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_three->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_four->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_five->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_six->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_seven->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_eight->setStyleSheet("* { background-color:red;border-radius:10px; }");
-  ui->pushButton_nine->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton1->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton2->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton3->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton4->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton5->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton6->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton7->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton8->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton9->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton0->setStyleSheet("* { background-color:red;border-radius:10px; }");
 
 }

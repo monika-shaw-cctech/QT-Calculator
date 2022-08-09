@@ -3,10 +3,7 @@
 #include "QDebug"
 #include <math.h>
 #include "infixToPostfix.h"
-#include "digit.h"
-#include "unary.h"
-#include "binary.h"
-#include "equal.h"
+
 using namespace std;
 
 double firstNum, secondNum;
@@ -30,25 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
                    SLOT(digit_pressed()));
        }
 
-       connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-       connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-       connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-       connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-       connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-
-   connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(dot_operation()));
-   connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_reciprocal,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
+   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(digit_pressed()));
 
 
-
-
-   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
-   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
+   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
 
 
 
@@ -74,77 +61,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::digit_pressed()
 {
-//    qDebug()<<"presses";
-     QPushButton *button=(QPushButton*)sender(); //sender return object that call method
-     if(ui->label_2->text() == '0')
-     {
-         ui->label_2->setText(button->text());
-     }
-     else
-         ui->label_2->setText(ui->label_2->text()+button->text());
+    QPushButton *button=(QPushButton*)sender(); //sender return object that call method
+       if(ui->label_2->text()=="0"){
+           ui->label_2->setText(button->text());
+       }
+       else
+               ui->label_2->setText(ui->label_2->text()+' '+button->text());
 
-//     string btnTxt = button->text().toStdString();
-//     string labelTxt = ui->label_2->text().toStdString();
-//     string result = labelText(labelTxt,btnTxt);
+       }
 
-//     double num = stod(result);
-//     ui->label_2->setText(QString::number(num));
-//     secondNum =num;
-
-    }
-
-
-void MainWindow::dot_operation()
-{
-    QPushButton *button = (QPushButton*)sender();
-
-    string lText = ui->label_2->text().toStdString();
-    string bText = button->text().toStdString();
-    string result= dotOperation(lText,bText);
-
-    ui->label_2->setText(QString::fromStdString(result));
-
-}
-
-
-void MainWindow::unary_operation()
-{
-
-     QPushButton *button = (QPushButton*)sender();
-
-     double lText = ui->label_2->text().toDouble();
-     string bText = button->text().toStdString();
-
-     double result = allUnaryOperation(lText,bText);
-      ui->label_2->setText(QString::number(result));
-
-
-}
-
-void MainWindow::binary_operation()
-{
-    QPushButton*button =(QPushButton*)sender();
-    button->setCheckable(true);
-
-
-    string lText = ui->label_2->text().toStdString();
-    string bText = button->text().toStdString();
-    string s = binaryOperation(lText,bText);
-
-    firstNum = stod(lText);
-    ui->label_3->setText(QString::fromStdString(s));
-    ui->label_2->setText("0");
-
-
-}
-
-void MainWindow::add_brackets()
-{
-    QPushButton*button =(QPushButton*)sender();
-    // qDebug()<<(ui->label_2->text()+' '+button->text());
-       ui->label_2->setText(ui->label_2->text()+' '+button->text());
-
-}
 
 void MainWindow::clear_pressed()
 {
@@ -155,7 +80,7 @@ void MainWindow::clear_pressed()
 
 void MainWindow::back_pressed()
 {
-    QString displayLabel = ui->label_3->text();
+    QString displayLabel = ui->label_2->text();
 
       //Check if label is empty
       if (displayLabel.length() == 0) {
@@ -165,33 +90,20 @@ void MainWindow::back_pressed()
       //Delete last digit from string
       displayLabel.QString::chop(1);
       //Set number back to display
-      ui->label_3->setText(displayLabel);
+      ui->label_2->setText(displayLabel);
 
 }
 
 void MainWindow::equal_pressed()
 {
-//    bool plus = ui->pushButton_plus->isChecked();
-//    bool minus = ui->pushButton_minus->isChecked();
-//    bool multiply = ui->pushButton_multiply->isChecked();
-//    bool divide = ui->pushButton_divide->isChecked();
 
-//    double res = equalOperation(firstNum,secondNum,plus,minus,multiply,divide);
-//     ui->label_1->setText(QString::number(res));
+       digit_pressed();
+       string expression=ui->label_2->text().toStdString();
+       long long result=evaluate(expression);
+       ui->label_1->setText(QString::number(result,'g',15));
+       //ui->statusBar->showMessage("valid expression",1000);
+       ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
 
-//     ui->pushButton_plus->setChecked(false);
-//     ui->pushButton_minus->setChecked(false);
-//     ui->pushButton_multiply->setChecked(false);
-//     ui->pushButton_divide->setChecked(false);
-
-//      digit_pressed();
-      qDebug()<<ui->label_2->text();
-        string expression=ui->label_2->text().toStdString();
-        long long result=evaluate(expression);
-        qDebug()<<result;
-        ui->label_1->setText(QString::number(result,'g',15));
-        //ui->statusBar->showMessage("valid expression",1000);
-//        ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
 
 
 

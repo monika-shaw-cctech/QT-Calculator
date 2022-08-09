@@ -3,9 +3,8 @@
 #include "QDebug"
 #include <math.h>
 #include "infixToPostfix.h"
-using namespace std;
 
-QString first_label;
+using namespace std;
 
 double firstNum, secondNum;
 
@@ -14,40 +13,37 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPushButton *numButtons[10];
 
-   connect(ui->pushButton_zero,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_one,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_two,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_three,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_four,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_five,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_six,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_seven,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_eight,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_nine,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       // Cycle through locating the buttons
+       for(int i = 0; i < 10; ++i){
+           QString butName = "pushButton" + QString::number(i);
 
+           // Get the buttons by name and add to array
+           numButtons[i] = MainWindow::findChild<QPushButton *>(butName);
 
-   connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_plus_minus,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_reciprocal,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
+           // When the button is released call num_pressed()
+           connect(numButtons[i], SIGNAL(released()), this,
+                   SLOT(digit_pressed()));
+       }
 
-   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(binary_operation()));
-
-   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
-   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(add_brackets()));
+       connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+       connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
 
 
 
    connect(ui->pushButton_clear,SIGNAL(pressed()),this,SLOT(clear_pressed()));
    connect(ui->pushButton_equals,SIGNAL(pressed()),this,SLOT(equal_pressed()));
+   connect(ui->pushButton_back,SIGNAL(pressed()),this,SLOT(back_pressed()));
+
+    connect(ui->pushButton_theme,SIGNAL(pressed()),this,SLOT(theme_pressed()));
+
+
 
 
 
@@ -63,109 +59,56 @@ MainWindow::~MainWindow()
 
 void MainWindow::digit_pressed()
 {
-//    qDebug()<<"presses";
     QPushButton *button=(QPushButton*)sender(); //sender return object that call method
-    if(ui->label_2->text()=="0"){
-        ui->label_2->setText(button->text());
-    }else{
-        string exp=ui->label_2->text().toStdString();
-        size_t length=exp.length();
-        if(exp[length-1]=='+'||exp[length-1]=='x'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^')
-            //qDebug()<<ui->label_2->setText(ui->label_2->text()+' '+button->text());
-            ui->label_2->setText(ui->label_2->text()+' '+button->text());
+
+     if(ui->label_2->text() == "0")
+            ui->label_2->setText(button->text());
         else
-            ui->label_2->setText(ui->label_2->text()+button->text());
-    }
-
-}
-
-void MainWindow::unary_operation()
-{
-//      qDebug()<<"dot";
-     QPushButton *button = (QPushButton*)sender();
-     double label;
-     QString result;
-
-    if(button->text() == '.')
-    {
-        ui->label_2->setText(ui->label_2->text()+".");
-    }
-
-    else if(button->text() == "+/-")
-    {
-//        ui->label_2->setText("-"+ui->label_2->text());
-
-
-        label = (ui->label_2->text().toDouble())* (-1);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-    }
-    else if(button->text() == "%")
-    {
-        label = (ui->label_2->text().toDouble()) * (0.01);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-
-    }
-    else if(button->text() == "1/𝔁")
-    {
-        label =  (1) / (ui->label_2->text().toDouble());
-        result = QString::number(label);
-        ui->label_2->setText(result);
-    }
-
-    else if(button->text() == "𝔁²")
-    {
-        label = ui->label_2->text().toDouble() * (2);
-        result = QString::number(label);
-        ui->label_2->setText(result);
-
-    }
-
-    else if(button->text() == "²√")
-    {
-       label = sqrt(ui->label_2->text().toDouble());
-//       qDebug()<<label;
-       result = QString::number(label);
-       ui->label_2->setText(result);
-
-    }
-
-    else if(button->text() == "𝔁/2")
-    {
-       label = (ui->label_2->text().toDouble()) * (0.5);
-//       qDebug()<<label;
-       result = QString::number(label);
-       ui->label_2->setText(result);
-
-    }
-
-
-
-}
-
-void MainWindow::binary_operation()
-{
-    QPushButton*button =(QPushButton*)sender();
-       ui->label_2->setText(ui->label_2->text()+' '+button->text());
-}
-
-void MainWindow::add_brackets()
-{
-    QPushButton*button =(QPushButton*)sender();
-    // qDebug()<<(ui->label_2->text()+' '+button->text());
-       ui->label_2->setText(ui->label_2->text()+' '+button->text());
+            ui->label_2->setText(ui->label_2->text()+' '+button->text());
 }
 
 void MainWindow::clear_pressed()
 {
     ui->label_1->setText("0");
     ui->label_2->setText("0");
+    ui->label_3->setText("0");
 }
 
+void MainWindow::back_pressed()
+{
+    QString displayLabel = ui->label_2->text();
+      if (displayLabel.length() == 0) {
+          return;
+      }
 
+      displayLabel.QString::chop(2);
+      ui->label_2->setText(displayLabel);
+
+}
 
 void MainWindow::equal_pressed()
 {
+        string expression=ui->label_2->text().toStdString();
+        ui->label_3->setText(ui->label_2->text());
+        long long result=evaluate(expression);
+        ui->label_1->setText(QString::number(result,'g',15));
+        ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
+
+
+
+}
+
+void MainWindow::theme_pressed()
+{
+  ui->pushButton1->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton2->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton3->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton4->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton5->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton6->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton7->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton8->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton9->setStyleSheet("* { background-color:red;border-radius:10px; }");
+  ui->pushButton0->setStyleSheet("* { background-color:red;border-radius:10px; }");
 
 }

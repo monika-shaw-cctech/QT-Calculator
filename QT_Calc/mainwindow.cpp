@@ -68,14 +68,10 @@ void MainWindow::digit_pressed()
     QPushButton *button=(QPushButton*)sender();
       if(ui->label_2->text()=="0")
           ui->label_2->setText(button->text());
-      else{
-          string exp=ui->label_2->text().toStdString();
-          size_t length=exp.length();
-          if(exp[length-1]=='+'||exp[length-1]=='*'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^'|| exp[length-1]=='(')
-              ui->label_2->setText(ui->label_2->text()+' '+button->text());
+
           else
               ui->label_2->setText(ui->label_2->text()+button->text());
-          }
+
 }
 
 

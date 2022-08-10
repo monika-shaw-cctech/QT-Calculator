@@ -25,7 +25,9 @@ private slots:
     void back_pressed();
     void theme1_pressed();
     void theme2_pressed();
+
 private:
     Ui:: MainWindow *ui;
 };
+
 #endif // MAINWINDOW_H

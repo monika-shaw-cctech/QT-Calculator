@@ -7,13 +7,13 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class  MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+     MainWindow(QWidget *parent = nullptr);
+    ~ MainWindow();
 
 private slots:
     void digit_pressed();
@@ -23,8 +23,9 @@ private slots:
     void clear_pressed();
     void equal_pressed();
     void back_pressed();
-    void theme_pressed();
+    void theme1_pressed();
+    void theme2_pressed();
 private:
-    Ui::MainWindow *ui;
+    Ui:: MainWindow *ui;
 };
 #endif // MAINWINDOW_H

@@ -4,5 +4,5 @@
 #include <iostream>
 
 using namespace std;
-double all_unary_operation(string exp);
+double all_unary_operation(string exp,string op);
 #endif // UNARYOPERATION_H

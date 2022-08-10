@@ -3,6 +3,7 @@
 #include "QDebug"
 #include <math.h>
 #include "infixToPostfix.h"
+#include "unaryOperation.h"
 
 using namespace std;
 
@@ -27,15 +28,19 @@ MainWindow::MainWindow(QWidget *parent)
                    SLOT(digit_pressed()));
        }
 
-   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(binary_operation()));
+   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(binary_operation()));
+   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(binary_operation()));
+   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(binary_operation()));
+   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(binary_operation()));
+
+    connect(ui->pushButton_dot,SIGNAL(pressed()),this,SLOT(dot_operation()));
+    connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
 
 
-   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
-   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(digit_pressed()));
+
+   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(binary_operation()));
+   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(binary_operation()));
 
 
 
@@ -62,14 +67,43 @@ MainWindow::~MainWindow()
 void MainWindow::digit_pressed()
 {
     QPushButton *button=(QPushButton*)sender(); //sender return object that call method
-       if(ui->label_2->text()=="0"){
-           ui->label_2->setText(button->text());
-       }
-       else
-               ui->label_2->setText(ui->label_2->text()+' '+button->text());
+      if(ui->label_2->text()=="0"){
+          ui->label_2->setText(button->text());
+      }
+      else{
+          string exp=ui->label_2->text().toStdString();
+          size_t length=exp.length();
+          if(exp[length-1]=='+'||exp[length-1]=='*'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^'|| exp[length-1]=='(')
+              ui->label_2->setText(ui->label_2->text()+' '+button->text());
+          else
+              ui->label_2->setText(ui->label_2->text()+button->text());
+      }
+}
 
-       }
 
+void MainWindow::dot_operation()
+{
+    digit_pressed();
+}
+
+
+void MainWindow::unary_operation()
+{
+    qDebug()<<ui->label_2->text();
+    string exp = ui->label_2->text().toStdString();
+    ui->label_3->setText(ui->label_2->text());
+    double result = all_unary_operation(exp);
+
+    ui->label_1->setText(QString::number(result));
+
+
+}
+
+void MainWindow :: binary_operation()
+{
+    QPushButton*button =(QPushButton*)sender();
+     ui->label_2->setText(ui->label_2->text()+' '+button->text());
+}
 
 void MainWindow::clear_pressed()
 {
@@ -97,16 +131,12 @@ void MainWindow::back_pressed()
 void MainWindow::equal_pressed()
 {
 
-       digit_pressed();
+
        string expression=ui->label_2->text().toStdString();
        long long result=evaluate(expression);
        ui->label_1->setText(QString::number(result,'g',15));
        //ui->statusBar->showMessage("valid expression",1000);
        ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
-
-
-
-
 }
 
 void MainWindow::theme_pressed()

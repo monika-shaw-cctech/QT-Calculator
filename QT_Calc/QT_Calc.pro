@@ -10,11 +10,15 @@ CONFIG += c++17
 
 SOURCES += \
     UnaryOperation.cpp \
+    UnitTesting.cpp \
+    digit.cpp \
     infixToPostfix.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    catch.hpp \
+    digit.h \
     infixToPostfix.h \
     mainwindow.h \
     unaryOperation.h

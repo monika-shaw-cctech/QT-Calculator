@@ -2,6 +2,7 @@
 #include <QFile>
 #include <math.h>
 
+#include "digit.h""
 #include "mainwindow.h"
 #include "infixToPostfix.h"
 #include "QDebug"
@@ -25,22 +26,22 @@ MainWindow::MainWindow(QWidget *parent)
         connect(numButtons[i], SIGNAL(released()), this,SLOT(digit_pressed()));
     }
 
-   connect(ui->pushButton_plus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_minus,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_multiply,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_divide,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_power,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_left_brace,SIGNAL(pressed()),this,SLOT(binary_operation()));
-   connect(ui->pushButton_right_brace,SIGNAL(pressed()),this,SLOT(binary_operation()));
+    QPushButton *binOperationButtons[10];
+    for(int i = 11; i < 18; ++i)
+    {
+        QString butName = "pushButton" + QString::number(i);
+        binOperationButtons[i] = MainWindow::findChild<QPushButton *>(butName);
+        connect(binOperationButtons[i], SIGNAL(released()), this,SLOT(binary_operation()));
+    }
 
-   connect(ui->pushButton_round,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_modulo,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_square_root,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_reciprocal,SIGNAL(pressed()),this,SLOT(unary_operation()));
-   connect(ui->pushButton_half,SIGNAL(pressed()),this,SLOT(unary_operation()));
+    QPushButton *UnOperationButtons[10];
+    for(int i = 20; i < 27; ++i)
+    {
+        QString butName = "pushButton" + QString::number(i);
+        UnOperationButtons[i] = MainWindow::findChild<QPushButton *>(butName);
+        connect(UnOperationButtons[i], SIGNAL(released()), this,SLOT(unary_operation()));
+    }
 
-   connect(ui->pushButton_clear,SIGNAL(pressed()),this,SLOT(clear_pressed()));
    connect(ui->pushButton_equals,SIGNAL(pressed()),this,SLOT(equal_pressed()));
    connect(ui->pushButton_back,SIGNAL(pressed()),this,SLOT(back_pressed()));
 
@@ -59,17 +60,10 @@ MainWindow::~MainWindow()
 void MainWindow::digit_pressed()
 {
     QPushButton *button=(QPushButton*)sender();
-    if(ui->label_2->text()=="0")
-        ui->label_2->setText(button->text());
-    else
-    {
-        string exp=ui->label_2->text().toStdString();
-        size_t length=exp.length();
-        if(exp[length-1]=='+'||exp[length-1]=='*'||exp[length-1]=='-'||exp[length-1]=='/' ||exp[length-1]=='^'|| exp[length-1]=='(')
-            ui->label_2->setText(ui->label_2->text()+' '+button->text());
-         else
-            ui->label_2->setText(ui->label_2->text()+button->text());
-    }
+    string labelText = ui->label_2->text().toStdString();
+    string btn = button->text().toStdString();
+    string result = all_num(labelText,btn);
+    ui->label_2->setText(QString::fromStdString(result));
 }
 
 
@@ -93,13 +87,6 @@ void MainWindow :: binary_operation()
 {
     QPushButton*button =(QPushButton*)sender();
     ui->label_2->setText(ui->label_2->text()+' '+button->text());
-}
-
-void MainWindow::clear_pressed()
-{
-    ui->label_1->setText("0");
-    ui->label_2->setText("0");
-    ui->label_3->setText("0");
 }
 
 void MainWindow::back_pressed()

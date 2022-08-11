@@ -85,7 +85,7 @@ color:black;
      <number>10</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_plus">
+   <widget class="QPushButton" name="pushButton11">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -243,7 +243,7 @@ color:black;
      <string>←</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_power">
+   <widget class="QPushButton" name="pushButton15">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -274,7 +274,7 @@ color:black;
      <string>^</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_square">
+   <widget class="QPushButton" name="pushButton22">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -305,7 +305,7 @@ color:black;
      <string>𝔁²</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_square_root">
+   <widget class="QPushButton" name="pushButton23">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -336,7 +336,7 @@ color:black;
      <string>²√</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_reciprocal">
+   <widget class="QPushButton" name="pushButton24">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -367,7 +367,7 @@ color:black;
      <string>1/𝔁</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_clear">
+   <widget class="QPushButton" name="pushButton26">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -429,7 +429,7 @@ color:black;
      <string>.</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_half">
+   <widget class="QPushButton" name="pushButton25">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -492,7 +492,7 @@ QPushButton:pressed
      <string>6</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_multiply">
+   <widget class="QPushButton" name="pushButton13">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -523,7 +523,7 @@ color:black;
      <string>*</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_round">
+   <widget class="QPushButton" name="pushButton20">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -583,7 +583,7 @@ border-radius: 10px;
      <string>Theme 1</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_right_brace">
+   <widget class="QPushButton" name="pushButton17">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -678,7 +678,7 @@ QPushButton:pressed
      <string>9</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_minus">
+   <widget class="QPushButton" name="pushButton12">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -709,7 +709,7 @@ color:black;
      <string>-</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_modulo">
+   <widget class="QPushButton" name="pushButton21">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -740,7 +740,7 @@ color:black;
      <string>%</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_left_brace">
+   <widget class="QPushButton" name="pushButton16">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -771,7 +771,7 @@ color:black;
      <string>(</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_divide">
+   <widget class="QPushButton" name="pushButton14">
     <property name="geometry">
      <rect>
       <x>280</x>

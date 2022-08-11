@@ -101,11 +101,11 @@ void MainWindow::back_pressed()
 
 void MainWindow::equal_pressed()
 {
-    ui->label_3->setText(ui->label_2->text());
+
     string expression=ui->label_2->text().toStdString();
     long long result=infixToPostfixEvaluate(expression);
     ui->label_1->setText(QString::number(result,'g',15));
-
+    ui->label_3->setText(QString::fromStdString(infixToPostfix(expression)));
 }
 
 void MainWindow::theme1_pressed()

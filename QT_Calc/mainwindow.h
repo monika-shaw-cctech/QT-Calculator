@@ -20,7 +20,6 @@ private slots:
     void dot_operation();
     void unary_operation();
     void binary_operation();
-    void clear_pressed();
     void equal_pressed();
     void back_pressed();
     void theme1_pressed();

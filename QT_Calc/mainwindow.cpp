@@ -105,6 +105,7 @@ void MainWindow::equal_pressed()
     string expression=ui->label_2->text().toStdString();
     long long result=infixToPostfixEvaluate(expression);
     ui->label_1->setText(QString::number(result,'g',15));
+
 }
 
 void MainWindow::theme1_pressed()

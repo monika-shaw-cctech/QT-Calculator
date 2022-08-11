@@ -13,6 +13,11 @@ string all_num(string labelText,string btn)
         return btn;
     }
 
+    else if(labelText[length-1]=='+'||labelText[length-1]=='*'||labelText[length-1]=='-'||labelText[length-1]=='/' ||labelText[length-1]=='^'|| labelText[length-1]=='(')
+    {
+        return labelText+' '+btn;
+    }
+
     else
     {
         return labelText+btn;

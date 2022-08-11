@@ -37,14 +37,16 @@ double all_unary_operation(string exp,string op)
         value = stod(exp);
         return 1/value;
     }
-    else if(op == "c")
+    else if(op == "CE")
     {
 
         return 0;
     }
-    else
+    else if(op == "𝔁/2")
     {
         value = stod(exp);
         return  value * (0.5);
     }
+    else
+        return 0;
 }
